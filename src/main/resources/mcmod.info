@@ -1,0 +1,16 @@
+[
+{
+  "modid": "greggen",
+  "name": "GregGen",
+  "description": "Adds new and interesting worldgen to work alongside GT6",
+  "version": "0.1.1",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SuperCoder79"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
