@@ -305,9 +305,9 @@ public class GregGenChunkGenerator implements IChunkProvider {
                     }
                 }
 
-                // Each unit of depth roughly corresponds to 16 blocks
+                // Each unit of depth roughly corresponds to 16 blocks, but we use 20 for good measure
                 // We start reduction at 56 instead of 64, the sea level, as it's
-                double startLevel = 56 + (lowestScaledDepth * 18);
+                double startLevel = 56 + (lowestScaledDepth * 20);
                 int sub = (int) (startLevel / 8);
 
                 for (int y = 0; y < 33; y++) {
