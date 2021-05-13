@@ -289,6 +289,8 @@ public class GregGenChunkGenerator implements IChunkProvider {
     }
 
     private void generateNoiseCavesNoise(int chunkX, int chunkZ) {
+        BiomeGenBase[] biomes = null;
+        biomes = this.world.getWorldChunkManager().getBiomesForGeneration(biomes, chunkX * 4 - 2, chunkZ * 4 - 2, 10, 10);
         int i = 0;
 
         for (int x = 0; x < 5; ++x) {
@@ -298,7 +300,7 @@ public class GregGenChunkGenerator implements IChunkProvider {
                 // We iterate the entire area to ensure we're not anywhere even near an ocean
                 for (int x1 = -2; x1 <= 2; ++x1) {
                     for (int z1 = -2; z1 <= 2; ++z1) {
-                        BiomeGenBase biome = this.biomes[x + x1 + 2 + (z + z1 + 2) * 10];
+                        BiomeGenBase biome = biomes[x + x1 + 2 + (z + z1 + 2) * 10];
 
                         // Disable in oceans
                         lowestScaledDepth = Math.min(lowestScaledDepth, biome.rootHeight);
@@ -306,7 +308,7 @@ public class GregGenChunkGenerator implements IChunkProvider {
                 }
 
                 // Each unit of depth roughly corresponds to 16 blocks, but we use 20 for good measure
-                // We start reduction at 56 instead of 64, the sea level, as it's
+                // We start reduction at 56 instead of 64, the sea level, to give ourselves some more room.
                 double startLevel = 56 + (lowestScaledDepth * 20);
                 int sub = (int) (startLevel / 8);
 
@@ -314,7 +316,7 @@ public class GregGenChunkGenerator implements IChunkProvider {
                     double caveNoise = this.noiseCaves.sample(this.terrainNoise[i], y * 8, chunkZ * 16 + (z * 4), chunkX * 16 + (x * 4));
 
                     // Reduce so we don't break the surface
-                    caveNoise = supercoder79.greggen.util.MathHelper.clampedLerp(caveNoise, 20, (y - sub) / 2.0);
+                    caveNoise = supercoder79.greggen.util.MathHelper.clampedLerp(caveNoise, (lowestScaledDepth * -30) + 20, (y - sub + 2) / 2.0);
 
                     this.caveNoise[i] = caveNoise;
                     i++;
