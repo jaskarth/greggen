@@ -9,6 +9,7 @@ import gregapi.code.ModData;
 import gregapi.data.MD;
 import supercoder79.greggen.world.GregGenBOPWorldType;
 import supercoder79.greggen.world.GregGenWorldType;
+import supercoder79.greggen.world.biome.GregGenBiomes;
 
 @Mod(modid = GregGen.MOD_ID, name = GregGen.MOD_NAME, version = GregGen.VERSION, dependencies="required-after:gregapi_post")
 public final class GregGen extends Abstract_Mod {
@@ -39,6 +40,8 @@ public final class GregGen extends Abstract_Mod {
 
 	@Override
 	public void onModPreInit2(FMLPreInitializationEvent aEvent) {
+		GregGenBiomes.init();
+
 		this.worldType = new GregGenWorldType();
 
 		// Add bop world type
