@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenTaiga1;
 
 import java.util.Random;
 
+// Savanna with pine trees (it's a real thing)
 public final class SpruceSavannaBiome extends ShadowBiome {
     private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 

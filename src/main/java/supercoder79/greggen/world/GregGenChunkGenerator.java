@@ -25,6 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import supercoder79.greggen.world.biome.ShadowBiome;
 
 import java.util.List;
 import java.util.Random;
@@ -436,7 +437,16 @@ public final class GregGenChunkGenerator implements IChunkProvider {
 
         GregGenBiomeSource biomeSource = (GregGenBiomeSource) this.world.getWorldChunkManager();
 
-        BiomeGenBase biomegenbase = biomeSource.getShadowBiome(null, x + 16, z + 16, 1, 1)[0];
+        BiomeGenBase backedBiome = this.world.getBiomeGenForCoords(x + 16, z + 16);
+        BiomeGenBase biomegenbase = biomeSource.getShadowBiome(null, (x + 16) >> 2, (z + 16) >> 2, 1, 1)[0];
+        if (biomegenbase instanceof ShadowBiome) {
+            // It seems it's possible that a shadow biome is generated in a way that it shadows a *different* biome than the target.
+            // That's not good. If the backing biome of the shadow biome and the real biome at this position are different, then we give up and use the real biome.
+            if (((ShadowBiome) biomegenbase).getRealId() != backedBiome.biomeID) {
+                biomegenbase = backedBiome;
+            }
+        }
+
         this.random.setSeed(this.world.getSeed());
         long longA = this.random.nextLong() / 2L * 2L + 1L;
         long longB = this.random.nextLong() / 2L * 2L + 1L;

@@ -8,6 +8,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 import java.util.Random;
 
+// More trees than regular plains
 public class LushPlainsBiome extends ShadowBiome {
     public LushPlainsBiome(int id)
     {
@@ -18,7 +19,7 @@ public class LushPlainsBiome extends ShadowBiome {
         this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityHorse.class, 5, 2, 6));
         this.theBiomeDecorator.treesPerChunk = 2;
         this.theBiomeDecorator.flowersPerChunk = 8;
-        this.theBiomeDecorator.grassPerChunk = 20;
+        this.theBiomeDecorator.grassPerChunk = 18;
         this.flowers.clear();
         this.addFlower(Blocks.red_flower,    4,  3);
         this.addFlower(Blocks.red_flower,    5,  3);
@@ -65,7 +66,7 @@ public class LushPlainsBiome extends ShadowBiome {
         }
         else
         {
-            this.theBiomeDecorator.flowersPerChunk = 8;
+            this.theBiomeDecorator.flowersPerChunk = 25;
 
             genTallFlowers.func_150548_a(2);
 

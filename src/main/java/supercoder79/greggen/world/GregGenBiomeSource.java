@@ -35,7 +35,7 @@ public class GregGenBiomeSource extends WorldChunkManager {
             biomes = new BiomeGenBase[width * height];
         }
 
-        int[] aint = this.shadowVoronoiLayer.getInts(x, z, width, height);
+        int[] aint = this.shadowLayer.getInts(x, z, width, height);
 
         for (int i = 0; i < width * height; ++i) {
             int biomeId = aint[i];

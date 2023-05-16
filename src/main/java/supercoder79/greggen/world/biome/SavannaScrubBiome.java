@@ -9,6 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenShrub;
 
 import java.util.Random;
 
+// Savanna with shrubs
 public final class SavannaScrubBiome extends ShadowBiome {
     private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 
