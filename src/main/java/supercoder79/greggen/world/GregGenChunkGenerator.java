@@ -435,16 +435,23 @@ public final class GregGenChunkGenerator implements IChunkProvider {
         int x = chunkX * 16;
         int z = chunkZ * 16;
 
-        GregGenBiomeSource biomeSource = (GregGenBiomeSource) this.world.getWorldChunkManager();
-
+        BiomeGenBase biomegenbase;
         BiomeGenBase backedBiome = this.world.getBiomeGenForCoords(x + 16, z + 16);
-        BiomeGenBase biomegenbase = biomeSource.getShadowBiome(null, (x + 16) >> 2, (z + 16) >> 2, 1, 1)[0];
-        if (biomegenbase instanceof ShadowBiome) {
-            // It seems it's possible that a shadow biome is generated in a way that it shadows a *different* biome than the target.
-            // That's not good. If the backing biome of the shadow biome and the real biome at this position are different, then we give up and use the real biome.
-            if (((ShadowBiome) biomegenbase).getRealId() != backedBiome.biomeID) {
-                biomegenbase = backedBiome;
+        
+        if (this.world.getWorldChunkManager() instanceof GregGenBiomeSource) {
+            GregGenBiomeSource biomeSource = (GregGenBiomeSource) this.world.getWorldChunkManager();
+
+            biomegenbase = biomeSource.getShadowBiome(null, (x + 16) >> 2, (z + 16) >> 2, 1, 1)[0];
+
+            if (biomegenbase instanceof ShadowBiome) {
+                // It seems it's possible that a shadow biome is generated in a way that it shadows a *different* biome than the target.
+                // That's not good. If the backing biome of the shadow biome and the real biome at this position are different, then we give up and use the real biome.
+                if (((ShadowBiome) biomegenbase).getRealId() != backedBiome.biomeID) {
+                    biomegenbase = backedBiome;
+                }
             }
+        } else {
+            biomegenbase = backedBiome;
         }
 
         this.random.setSeed(this.world.getSeed());
